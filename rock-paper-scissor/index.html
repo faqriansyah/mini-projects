@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Rock Paper Scissors</title>
+</head>
+
+<body>
+    <button type="button" class="btn fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        ?
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">How To Play</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        <li>dont tell me you dont know how to play it</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container container centered">
+        <div>
+            <h1 class="turnt-pick text-center fw-bold">Player 1 Choose</h1>
+            <div class="choose-wrapper container py-4 d-flex justify-content-center align-items-center">
+                <div class="pick box m-2 rounded fs-1 d-flex justify-content-center align-items-center" id="rock">👊</div>
+                <div class="pick box m-2 rounded fs-1 d-flex justify-content-center align-items-center" id="paper">✋</div>
+                <div class="pick box m-2 rounded fs-1 d-flex justify-content-center align-items-center" id="scissor">✌️</div>
+            </div>
+            <p class="text-center fw-bold text-primary" id="res">Result</p>
+            <div class="centered">
+                <button class="btn btn-warning fw-bold w-50" id="restart">Restart</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

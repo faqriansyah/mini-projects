@@ -1,0 +1,41 @@
+body {
+    background-color: #f1f1f1;
+    height: 100vh;
+    cursor: pointer;
+}
+
+.main-container {
+    height: 100%;
+}
+
+.box {
+    width: 100px;
+    height: 100px;
+    transition: .2s ease all;
+}
+
+.box:active {
+    transform: scale(0.8);
+}
+
+.choose-wrapper .box:nth-child(1) {
+    background-color: cadetblue;
+}
+.choose-wrapper .box:nth-child(2) {
+    background-color: rebeccapurple;
+}
+.choose-wrapper .box:nth-child(3) {
+    background-color: orange;
+}
+
+.pick-butt {
+    transition: .2s all ease;
+}
+
+.pick-butt:active {
+    transform: scale(0.8);
+}
+
+#restart {
+    display: none;
+}
