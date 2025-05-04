@@ -5,15 +5,6 @@ const restartButton = document.getElementById("restart");
 let p1, p2;
 let turn = 1;
 
-function ll(...param) {
-    let s = "";
-    param.forEach(p => {
-        s += p;
-    });
-
-    console.log(s);
-}
-
 function checkWinner(p1, p2) {
 
     const rule = {
