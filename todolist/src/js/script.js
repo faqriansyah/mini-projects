@@ -10,10 +10,11 @@ function createTaskElement(elementType, text = '', id = null, ...classNames) {
     }
     if (id != null) elem.id = id;
     if (classNames.length != 0) {
-        classNames.forEach((c) => {
-            console.log("Menambahkan nama kelas");
+        console.log("Masuk ke if");
+        for (const c in classNames) {
+            console.log("Loop! " + c);
             elem.classList.add(c);
-        })
+        }
     }
 
     return elem;
