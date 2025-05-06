@@ -1,6 +1,8 @@
 const add = document.getElementById("add");
 
 let tasks = [];
+const aclist = document.getElementById("task-list");
+
 
 function createTaskElement(elementType, text = '', id = null, ...classNames) {
     const elem = document.createElement(elementType);
@@ -10,9 +12,7 @@ function createTaskElement(elementType, text = '', id = null, ...classNames) {
     }
     if (id != null) elem.id = id;
     if (classNames.length != 0) {
-        console.log("Masuk ke if");
         for (const c in classNames) {
-            console.log("Loop! " + c);
             elem.classList.add(c);
         }
     }
@@ -20,10 +20,10 @@ function createTaskElement(elementType, text = '', id = null, ...classNames) {
     return elem;
 }
 
-function createTasksList(task, taskId, aclist) {
+function createTasksList(task, taskId) {
     const taskListElem = createTaskElement(elementype = 'li');
-    const taskNameSpan = createTaskElement(elementType = 'span', text=task);
-    const taskDeleteSpan = createTaskElement(elementType = 'span', text='delete', id=taskId, ['text-danger', 'text-decoration-underline']);
+    const taskNameSpan = createTaskElement(elementType = 'span', text = task);
+    const taskDeleteSpan = createTaskElement(elementType = 'span', text = 'delete', id = taskId, ['text-danger', 'text-decoration-underline']);
 
     taskListElem.appendChild(taskNameSpan);
     taskListElem.appendChild(taskDeleteSpan);
@@ -31,24 +31,20 @@ function createTasksList(task, taskId, aclist) {
     aclist.appendChild(taskListElem);
 }
 
-function renderTask(aclist) {
-    let taskNumber = 0;
-
-    aclist.innerHTML = '';
-    tasks.forEach((a) => {
-        console.log("For each array = " + a);
-        createTasksList(a, taskNumber, aclist);
-        taskNumber++;
-    })
+function syncTaskList() {
+    for (let i = 0; i < tasks.length; i++) {
+        createTaskElement(tasks[i], i)
+    }
 }
 
 function addTask() {
     const task = document.getElementById("task").value;
-    const aclist = document.getElementById("task-list");
+    let taskNumber = 0;
 
     tasks.push(task);
 
-    renderTask(aclist);
+    createTasksList(task, taskNumber, aclist);
+    taskNumber++;
 }
 
 function deleteTask() {
