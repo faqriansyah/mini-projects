@@ -1,19 +1,21 @@
 const add = document.getElementById("add");
 
 let tasks = [];
+let taskNumber = 0;
 const aclist = document.getElementById("task-list");
 
-
-function createTaskElement(elementType, text = '', id = null, ...classNames) {
+function createTaskElement(elementType, text = '', id = null, classNames = []) {
     const elem = document.createElement(elementType);
     if (text != '') {
         const elemText = document.createTextNode(text);
         elem.appendChild(elemText);
     }
-    if (id != null) elem.id = id;
-    if (classNames.length != 0) {
-        for (const c in classNames) {
-            elem.classList.add(c);
+    if (id != null)  {
+        elem.id = id;
+    };
+    if (classNames.length > 0) {
+        for (let c in classNames) {
+            elem.classList.add(classNames[c]);
         }
     }
 
@@ -21,9 +23,9 @@ function createTaskElement(elementType, text = '', id = null, ...classNames) {
 }
 
 function createTasksList(task, taskId) {
-    const taskListElem = createTaskElement(elementype = 'li');
-    const taskNameSpan = createTaskElement(elementType = 'span', text = task);
-    const taskDeleteSpan = createTaskElement(elementType = 'span', text = 'delete', id = taskId, ['text-danger', 'text-decoration-underline']);
+    const taskListElem = createTaskElement('li', '', taskId);
+    const taskNameSpan = createTaskElement('span', task);
+    const taskDeleteSpan = createTaskElement('span','delete',taskId, ['delete-button', 'text-danger', 'text-decoration-underline']);
 
     taskListElem.appendChild(taskNameSpan);
     taskListElem.appendChild(taskDeleteSpan);
@@ -31,16 +33,18 @@ function createTasksList(task, taskId) {
     aclist.appendChild(taskListElem);
 }
 
+function removeTaskList(taskId) {
+
+}
+
 function syncTaskList() {
     for (let i = 0; i < tasks.length; i++) {
-        createTaskElement(tasks[i], i)
+        createTasksList(tasks[i], i);
     }
 }
 
 function addTask() {
     const task = document.getElementById("task").value;
-    let taskNumber = 0;
-
     tasks.push(task);
 
     createTasksList(task, taskNumber, aclist);
@@ -48,7 +52,7 @@ function addTask() {
 }
 
 function deleteTask() {
-
+    
 }
 
 
