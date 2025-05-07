@@ -53,7 +53,6 @@ function addTask() {
 }
 
 function deleteTask(id) {
-    console.log("Menghilangkan elemen nomor " + id);
     tasks.splice(id, 1);
     syncTaskList();
 }
