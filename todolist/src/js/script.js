@@ -38,6 +38,7 @@ function removeTaskList(taskId) {
 }
 
 function syncTaskList() {
+    aclist.textContent = '';
     for (let i = 0; i < tasks.length; i++) {
         createTasksList(tasks[i], i);
     }
@@ -51,9 +52,15 @@ function addTask() {
     taskNumber++;
 }
 
-function deleteTask() {
-    
+function deleteTask(id) {
+    console.log("Menghilangkan elemen nomor " + id);
+    tasks.splice(id, 1);
+    syncTaskList();
 }
 
-
+aclist.addEventListener('click', (event) => {
+    if (event.target.tagName = 'BUTTON') {
+        deleteTask(event.target.id);
+    }
+})
 add.addEventListener('click', addTask);
