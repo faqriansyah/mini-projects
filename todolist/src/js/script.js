@@ -1,58 +1,65 @@
-const taskListElement = document.getElementById("task-list");
-const addButton = document.getElementById("add");
-const taskInput = document.getElementById("task");
+const add = document.getElementById("add");
 
 let tasks = [];
+let taskNumber = 0;
+const aclist = document.getElementById("task-list");
 
-function createElement(type, { text = '', id = null, classes = [] } = {}) {
-    const el = document.createElement(type);
-    if (text) el.textContent = text;
-    if (id !== null) el.id = id;
-    classes.forEach(cls => el.classList.add(cls));
-    return el;
+function createTaskElement(elementType, text = '', id = null, classNames = []) {
+    const elem = document.createElement(elementType);
+    if (text != '') {
+        const elemText = document.createTextNode(text);
+        elem.appendChild(elemText);
+    }
+    if (id != null)  {
+        elem.id = id;
+    };
+    if (classNames.length > 0) {
+        for (let c in classNames) {
+            elem.classList.add(classNames[c]);
+        }
+    }
+
+    return elem;
 }
 
-function renderTask(task, index) {
-    const li = createElement('li');
-    
-    const taskName = createElement('span', { text: task });
-    const deleteBtn = createElement('span', {
-        text: 'done',
-        id: index,
-        classes: ['delete-button', 'text-success', 'text-decoration-underline']
-    });
-    deleteBtn.role = 'button';
+function createTasksList(task, taskId) {
+    const taskListElem = createTaskElement('li', '', taskId);
+    const taskNameSpan = createTaskElement('span', task);
+    const taskDeleteSpan = createTaskElement('span','delete',taskId, ['delete-button', 'text-danger', 'text-decoration-underline']);
 
-    li.append(taskName, deleteBtn);
-    taskListElement.appendChild(li);
+    taskListElem.appendChild(taskNameSpan);
+    taskListElem.appendChild(taskDeleteSpan);
+    taskDeleteSpan.role = 'button';
+    aclist.appendChild(taskListElem);
 }
 
-function renderAllTasks() {
-    taskListElement.innerHTML = '';
-    tasks.forEach((task, i) => renderTask(task, i));
+function removeTaskList(taskId) {
+
+}
+
+function syncTaskList() {
+    aclist.textContent = '';
+    for (let i = 0; i < tasks.length; i++) {
+        createTasksList(tasks[i], i);
+    }
 }
 
 function addTask() {
-    const task = taskInput.value.trim();
-    if (task === '') return;
-
+    const task = document.getElementById("task").value;
     tasks.push(task);
-    renderTask(task, tasks.length - 1);
-    taskInput.value = ''; 
+
+    createTasksList(task, taskNumber, aclist);
+    taskNumber++;
 }
 
 function deleteTask(id) {
-    const index = parseInt(id, 10);
-    if (!isNaN(index)) {
-        tasks.splice(index, 1);
-        renderAllTasks();
-    }
+    tasks.splice(id, 1);
+    syncTaskList();
 }
 
-taskListElement.addEventListener('click', (event) => {
-    if (event.target.classList.contains('delete-button')) {
+aclist.addEventListener('click', (event) => {
+    if (event.target.tagName = 'BUTTON') {
         deleteTask(event.target.id);
     }
-});
-
-addButton.addEventListener('click', addTask);
+})
+add.addEventListener('click', addTask);
