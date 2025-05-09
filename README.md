@@ -1,1 +1,1 @@
-Collection of my mini projects
+This is collection of all my mini project to practice programming.

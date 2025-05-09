@@ -18,6 +18,10 @@ body {
     transform: scale(0.8);
 }
 
+.choose-wrapper {
+    display: none;
+}
+
 .choose-wrapper .box:nth-child(1) {
     background-color: cadetblue;
 }

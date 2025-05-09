@@ -34,12 +34,22 @@
     <div class="main-container container centered">
         <div>
             <h1 class="turnt-pick text-center fw-bold">Player 1 Choose</h1>
-            <div class="choose-wrapper container py-4 d-flex justify-content-center align-items-center">
+            <div class="choose-wrapper container py-4 d-flex justify-content-center align-items-center" id="choose-container">
                 <div class="pick box m-2 rounded fs-1 d-flex justify-content-center align-items-center" id="rock">👊</div>
                 <div class="pick box m-2 rounded fs-1 d-flex justify-content-center align-items-center" id="paper">✋</div>
                 <div class="pick box m-2 rounded fs-1 d-flex justify-content-center align-items-center" id="scissor">✌️</div>
             </div>
-            <p class="text-center fw-bold text-primary" id="res">Result</p>
+            <p class="text-center fw-bold text-primary" id="res"></p>
+            <div class="d-flex">
+                <div class="w-50">
+                    <p class="text-center text-primary m-0 fw-bold">Player 1</p>
+                    <p class="text-center fw-bold" id="score1">0</p>
+                </div>
+                <div class="w-50">
+                    <p class="text-center text-success m-0 fw-bold">Player 2</p>
+                    <p class="text-center fw-bold" id="score2">0</p>
+                </div>
+            </div>
             <div class="centered">
                 <button class="btn btn-warning fw-bold w-50" id="restart">Restart</button>
             </div>
