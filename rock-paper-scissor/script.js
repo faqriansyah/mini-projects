@@ -2,20 +2,89 @@ const chooseContainer = document.getElementById("choose-container");
 const turnPick = document.querySelector(".turnt-pick");
 const res = document.getElementById("res");
 const restartButton = document.getElementById("restart");
+const pickTurn = ['Player 1 Choose', 'Player 2 Choose'];
+const gameResult = ['Draw!', 'Player 1 Win!', 'Player 2 Win!'];
+let endGame = false;
 let score = [0, 0];
 let p1, p2;
 let turn = 1;
+
+// Component Manipulation
+function hideRestartButton() {
+    restartButton.style.display = 'none';
+}
+
+function showRestartButton() {
+    restartButton.style.display = 'block';
+}
+
+function resultTextContent(result) {
+    res.textContent = result;
+}
+
+function resetChoice() {
+    p1 = null;
+    p2 = null;
+    turn = 1;
+}
+
+function resetComponent() {
+    turnPickElementText(pickTurn[0]);
+    hideRestartButton();
+    resultTextContent('');
+}
+
+function endGameChange(val) {
+    endGame = val;
+}
+
+function restart() {
+    resetChoice();
+    resetComponent();
+    endGameChange(false);
+}
+
+function turnPickElementText(text) {
+    turnPick.textContent = text;
+}
 
 function showScore() {
     document.getElementById("score1").innerHTML = score[0];
     document.getElementById("score2").innerHTML = score[1];
 }
 
-function ifEqual(p1, p2) {
+function showWinner(win) {
+    switch (win) {
+        case -1:
+            restart();
+            break;
+        case 0:
+            resultTextContent(gameResult[0]);
+            break;
+        case 1:
+            resultTextContent(gameResult[1]);
+            break;
+        case 2:
+            resultTextContent(gameResult[2]);
+            break;
+        default:
+            resultTextContent('');
+            break;
+    }
+}
+
+// Game System
+function nextTurn() {
+    if(turn == 1) {
+        turn = 2;
+    }
+}
+
+function isEqual(p1, p2) {
     return p1 == p2;
 }
 
-function ifPlayerWin(rule, player, opponent) {
+function isPlayerWin(rule, player, opponent) {
     return rule[player] == opponent;
 }
 
@@ -31,13 +100,13 @@ function checkWinner(playerOneChoice, playerTwoChoice) {
         scissor: "paper"
     };
 
-    if (ifEqual(playerOneChoice, playerTwoChoice)) {
+    if (isEqual(playerOneChoice, playerTwoChoice)) {
         return 0;
-    } else if (ifPlayerWin(rule, playerOneChoice, playerTwoChoice)) {
+    } else if (isPlayerWin(rule, playerOneChoice, playerTwoChoice)) {
         addScore(0);
         showScore();
         return 1;
-    } else if (ifPlayerWin(rule, playerTwoChoice, playerOneChoice)) {
+    } else if (isPlayerWin(rule, playerTwoChoice, playerOneChoice)) {
         addScore(1);
         showScore();
         return 2;
@@ -47,34 +116,17 @@ function checkWinner(playerOneChoice, playerTwoChoice) {
     }
 }
 
-function showWinner(win) {
-    switch (win) {
-        case 0:
-            res.textContent = "Draw!";
-            break;
-        case 1:
-            res.textContent = "Player 1 Win!";
-            break;
-        case 2:
-            res.textContent = "Player 2 Win!";
-            break;
-        default:
-            res.textContent = "";
-            break;
-    }
-}
-
-function lastPlayerTurn(choice){
+function lastPlayerTurn(choice) {
     p2 = choice;
+    endGameChange(true);
     showWinner(checkWinner(p1, p2));
-    chooseContainer.style.display = 'none';
-    restartButton.style.display = 'block';
+    showRestartButton();    
 }
 
 function firstPlayerTurn(choice) {
     p1 = choice;
-    turn = 2;
-    turnPick.textContent = "Player 2 Choose";
+    nextTurn();
+    turnPickElementText(pickTurn[1]);
 }
 
 function playRound(choice) {
@@ -85,27 +137,11 @@ function playRound(choice) {
     }
 }
 
-function resetChoice() {
-    p1 = null;
-    p2 = null;
-    turn = 1;
-}
-
-function resetComponent() {
-    turnPick.textContent = "Player 1 Choose";
-    restartButton.style.display = 'none';
-    res.textContent = "";
-}
-
-function restart() {
-    resetChoice();
-    resetComponent();
-}
-
 restartButton.addEventListener('click', () => {
     restart();
 })
 
 chooseContainer.addEventListener('click', (event) => {
+    if (endGame || event.target.tagName != 'BUTTON') return;
     playRound(event.target.id);
 })
